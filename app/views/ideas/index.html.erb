@@ -7,13 +7,20 @@
   <div class="row">
     <% group.compact.each do |idea| %>
       <div class="col-md-4">
-        <%= image_tag idea.picture_url, height:'400' if idea.picture.present?%>
+        <%= image_tag idea.picture_url(:medium_thumb) if idea.picture? %>
         <h4><%= link_to idea.name, idea %></h4>
         <%= idea.description %>
-        <br>
-        <%= link_to 'Edit', edit_idea_path(idea) %>
-        <br>
-        <%= link_to 'Delete', idea, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% if current_user %>
+          <br>
+          <%= link_to 'Edit', edit_idea_path(idea) %>
+          <br>
+          <%= link_to 'Delete', idea, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% else %>  
+          <br>
+          <%= link_to 'Edit', new_user_session_path, data: { confirm: 'You must sign in to have permission' } %>
+          <br>
+          <%= link_to 'Delete', new_user_session_path, confirm:'You must sign in to have permission' %>
+        <% end %>
       </div>
     <% end %>
   </div>

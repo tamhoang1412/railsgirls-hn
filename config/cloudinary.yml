@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dyswa2dn9
+  api_key: '776966833486638'
+  api_secret: kZXz_jFGsT0EZ9TcBbx0F9h_Pfc
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dyswa2dn9
+  api_key: '776966833486638'
+  api_secret: kZXz_jFGsT0EZ9TcBbx0F9h_Pfc
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dyswa2dn9
+  api_key: '776966833486638'
+  api_secret: kZXz_jFGsT0EZ9TcBbx0F9h_Pfc
+  enhance_image_tag: true
+  static_image_support: false

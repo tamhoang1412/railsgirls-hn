@@ -4,7 +4,11 @@ class IdeasController < ApplicationController
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
+    if current_user
+      @ideas = current_user.ideas
+    else
+      @ideas = Idea.all
+    end
   end
 
   # GET /ideas/1
@@ -56,10 +60,18 @@ class IdeasController < ApplicationController
   # DELETE /ideas/1
   # DELETE /ideas/1.json
   def destroy
-    @idea.destroy
-    respond_to do |format|
-      format.html { redirect_to ideas_url, notice: 'Idea was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user
+      if current_user.ideas.include? @idea
+        @idea.destroy
+        respond_to do |format|
+          format.html { redirect_to ideas_url, notice: 'Idea was successfully destroyed.' }
+          format.json { head :no_content }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to ideas_url, notice: 'Permission denied' }
+      end
     end
   end
 
@@ -71,6 +83,6 @@ class IdeasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def idea_params
-      params.require(:idea).permit(:name, :description, :picture)
+      params.require(:idea).permit(:name, :description, :picture, :user_id)
     end
 end
